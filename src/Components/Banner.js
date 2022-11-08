@@ -11,7 +11,6 @@ export default class Banner extends Component {
             <div className="card-body banner-body">
                 <h5 className="card-title banner-title">{movie.original_title}</h5>
                 <p className="card-text banner-desc">{movie.overview}</p>
-                {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
             </div>
         </div>
       </div>

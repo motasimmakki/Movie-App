@@ -14,7 +14,7 @@ export default class List extends Component {
                         <img className="card-img-top movie-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="..."/>
                         <h5 className="card-title movie-title">{movie.original_title}</h5>
                         <div className='movie-btn-wrapper'>
-                            <a href="#" className="btn btn-primary movie-btn">Add To Favourites</a>
+                            <a href="#" className="btn btn-info movie-btn">Add To Favourites</a>
                         </div>
                     </div>
                 );
