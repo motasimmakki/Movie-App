@@ -8,8 +8,7 @@ export default class List extends Component {
       <div>
         <h3 className='trending'>Trending</h3>
         <div className='movies-list'>
-            {
-            allMovies.map(movie => {
+            {allMovies.map(movie => {
                 return (
                     <div className="card movie-card">
                         <img className="card-img-top movie-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="..."/>
@@ -19,8 +18,7 @@ export default class List extends Component {
                         </div>
                     </div>
                 );
-            })
-            }
+            })}
         </div>
       </div>
     )
