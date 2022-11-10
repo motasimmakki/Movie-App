@@ -8,7 +8,7 @@ export default class List extends Component {
       <> 
       {
         allMovies.length == 0?
-        <div class="spinner-border text-warning" role="status">
+        <div class="spinner-border text-info" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
         :<div>
