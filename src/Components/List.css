@@ -36,3 +36,7 @@
     position: absolute;
     bottom: 5%;
 }
+.pagination {
+    display: flex;
+    justify-content: center;
+}

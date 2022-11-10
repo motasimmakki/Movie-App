@@ -3,8 +3,8 @@ import {movies} from './getMovies';
 
 export default class Banner extends Component {
   render() {
-    // let movie = movies.results[0];
-    let movie = [];
+    let movie = movies.results;
+    // let movie = [];
     return (
       <>
       {
@@ -14,10 +14,10 @@ export default class Banner extends Component {
         </div>
         :<div className='banner-cont'>
           <div className="card banner-card">
-              <img className="card-img-top banner-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="..."/>
+              <img className="card-img-top banner-img" src={`https://image.tmdb.org/t/p/original/${movie[0].backdrop_path}`} alt="..."/>
               <div className="card-body banner-body">
-                  <h5 className="card-title banner-title">{movie.original_title}</h5>
-                  <p className="card-text banner-desc">{movie.overview}</p>
+                  <h5 className="card-title banner-title">{movie[0].original_title}</h5>
+                  <p className="card-text banner-desc">{movie[0].overview}</p>
               </div>
           </div>
         </div>
