@@ -3,17 +3,26 @@ import {movies} from './getMovies';
 
 export default class Banner extends Component {
   render() {
-    let movie = movies.results[0];
+    // let movie = movies.results[0];
+    let movie = [];
     return (
-      <div className='banner-cont'>
-        <div className="card banner-card">
-            <img className="card-img-top banner-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="..."/>
-            <div className="card-body banner-body">
-                <h5 className="card-title banner-title">{movie.original_title}</h5>
-                <p className="card-text banner-desc">{movie.overview}</p>
-            </div>
+      <>
+      {
+        movie.length == 0?
+        <div class="spinner-border text-warning" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-      </div>
+        :<div className='banner-cont'>
+          <div className="card banner-card">
+              <img className="card-img-top banner-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="..."/>
+              <div className="card-body banner-body">
+                  <h5 className="card-title banner-title">{movie.original_title}</h5>
+                  <p className="card-text banner-desc">{movie.overview}</p>
+              </div>
+          </div>
+        </div>
+      }
+      </>
     )
   }
 }
