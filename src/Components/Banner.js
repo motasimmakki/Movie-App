@@ -9,8 +9,8 @@ export default class Banner extends Component {
       <>
       {
         movie.length == 0?
-        <div class="spinner-border text-warning" role="status">
-          <span class="visually-hidden">Loading...</span>
+        <div className="spinner-border text-warning" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
         :<div className='banner-cont'>
           <div className="card banner-card">
