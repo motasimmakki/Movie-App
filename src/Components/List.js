@@ -7,7 +7,8 @@ export default class List extends Component {
     super();
     this.state = {
       hover: '',
-      movies: []
+      movies: [],
+      currPage: 1
     }
   }
   handleEnter = (id) => {
@@ -27,22 +28,41 @@ export default class List extends Component {
     // let data = await result.json();
 
     // Using Axios.
-    let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
+    let data = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=${this.state.currPage}`);
     console.log(data.data);
 
     this.setState({
       movies: [...data.data.results]
     });
   }
-  componentDidUpdate() {
+  async componentDidUpdate(prevProps, prevState) {
     console.log("CDU is Called");
-    
+    if(this.state.currPage != prevState.currPage) {
+      // Using Axios.
+      let data = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=${this.state.currPage}`);
+      console.log(data.data);
+  
+      this.setState({
+        movies: [...data.data.results]
+      });
+    }
   }
   componentWillUnmount() {
     console.log("CWU is Called");
-    
+  }
+  handlePageNext = () => {
+    this.setState({
+      currPage: this.state.currPage + 1
+    });
+  }
+  handlePagePrevious = () => {
+    if(this.state.currPage == 1) return;
+    this.setState({
+      currPage: this.state.currPage - 1
+    });
   }
   render() {
+    console.log("Rendered");
     // let allMovies = movies.results;
     return (
       <> 
@@ -79,16 +99,20 @@ export default class List extends Component {
           <div className='pagination'>
             <nav aria-label="...">
               <ul className="pagination">
-                <li className="page-item disabled">
-                  <span className="page-link">Previous</span>
-                </li>
-                <li className="page-item"><a className="page-link" href="#">1</a></li>
-                <li className="page-item active" aria-current="page">
-                  <span className="page-link">2</span>
-                </li>
-                <li className="page-item"><a className="page-link" href="#">3</a></li>
                 <li className="page-item">
-                  <a className="page-link" href="#">Next</a>
+                  <a className="page-link" href="#" onClick={this.handlePagePrevious}>
+                    Previous
+                  </a>
+                </li>
+                <li className="page-item active">
+                  <a className="page-link" href="#">
+                    {this.state.currPage}
+                  </a>
+                </li>
+                <li className="page-item">
+                  <a className="page-link" href="#" onClick={this.handlePageNext}>
+                    Next
+                  </a>
                 </li>
               </ul>
             </nav>
