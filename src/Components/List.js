@@ -28,7 +28,7 @@ export default class List extends Component {
     // let data = await result.json();
 
     // Using Axios.
-    let data = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=${this.state.currPage}`);
+    let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
     console.log(data.data);
 
     this.setState({

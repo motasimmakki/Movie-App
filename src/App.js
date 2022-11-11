@@ -6,13 +6,16 @@ import Banner from './Components/Banner'
 import './Components/Banner.css'
 import List from './Components/List'
 import './Components/List.css'
+import Favourites from './Components/Favourites'
+import './Components/Favourites.css'
 
 function App() {
   return (
     <>
-      <Navbar/>
+      {/* <Navbar/>
       <Banner/>
-      <List/>
+      <List/> */}
+      <Favourites/>
     </>
   );
 }
