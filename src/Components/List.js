@@ -18,6 +18,20 @@ export default class List extends Component {
       hover: ''
     });
   }
+  async componentDidMount() {
+    console.log("CDM is Called");
+    let result = await fetch("https://api.themoviedb.org/3/movie/550?api_key=fa7127a13c542d5323ce1a236b9df18a");
+    let data = result.json();
+    console.log(data);
+  }
+  componentDidUpdate() {
+    console.log("CDU is Called");
+    
+  }
+  componentWillUnmount() {
+    console.log("CWU is Called");
+    
+  }
   render() {
     let allMovies = movies.results;
     return (
@@ -75,3 +89,9 @@ export default class List extends Component {
     )
   }
 }
+
+
+// Movie API Link:
+// https://api.themoviedb.org/3/movie/550?api_key=fa7127a13c542d5323ce1a236b9df18a
+// Movie API Key:
+// fa7127a13c542d5323ce1a236b9df18a
