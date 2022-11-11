@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import {movies} from './getMovies'
+// import {movies} from './getMovies'
+import axios from 'axios';
 
 export default class List extends Component {
   constructor() {
     super();
     this.state = {
-      hover: ''
+      hover: '',
+      movies: []
     }
   }
   handleEnter = (id) => {
@@ -20,9 +22,17 @@ export default class List extends Component {
   }
   async componentDidMount() {
     console.log("CDM is Called");
-    let result = await fetch("https://api.themoviedb.org/3/movie/550?api_key=fa7127a13c542d5323ce1a236b9df18a");
-    let data = result.json();
-    console.log(data);
+    // Using fetch.
+    // let result = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
+    // let data = await result.json();
+
+    // Using Axios.
+    let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
+    console.log(data.data);
+
+    this.setState({
+      movies: [...data.data.results]
+    });
   }
   componentDidUpdate() {
     console.log("CDU is Called");
@@ -33,19 +43,19 @@ export default class List extends Component {
     
   }
   render() {
-    let allMovies = movies.results;
+    // let allMovies = movies.results;
     return (
       <> 
       {
-        allMovies.length == 0?
-        <div class="spinner-border text-info" role="status">
-          <span class="visually-hidden">Loading...</span>
+        this.state.movies.length == 0?
+        <div className="spinner-border text-info" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
         :<>
           <div>
             <h3 className='trending'>Trending</h3>
             <div className='movies-list'>
-                {allMovies.map(movie => {
+                {this.state.movies.map(movie => {
                     return (
                         <div className="card movie-card" 
                         onMouseEnter={() => this.handleEnter(movie.id)} 
