@@ -6,7 +6,8 @@ export default class Favourites extends Component {
   constructor() {
     super();
     this.state = {
-      movies: []
+      movies: [],
+      genres: []
     }
   }
   async componentDidMount() {
@@ -15,7 +16,10 @@ export default class Favourites extends Component {
     console.log(data.data);
 
     this.setState({
-      movies: [...data.data.results]
+      movies: [...data.data.results],
+      genres: [...new Set([...data.data.results.map(movie => {
+        return movie.genre_ids;
+      })].flat())]
     });
   }
   render() {
@@ -44,11 +48,17 @@ export default class Favourites extends Component {
       <>
       <Navbar/>
       <div className='p-5 gap-5 favourites-cont'>
-        <ul class="list-group col-3 favourites-list">
-          <li class="list-group-item active" aria-current="true">All Genres</li>
-          <li class="list-group-item">Action</li>
-          <li class="list-group-item">Fantacy</li>
-          <li class="list-group-item">Animation</li>
+        <ul className="list-group col-3 favourites-list">
+          <li className="list-group-item active" aria-current="true">All Genres</li>
+          {
+            this.state.genres.map(currGenre => (
+              <li className="list-group-item">
+                {genreId[currGenre]}
+              </li>
+            ))
+          }
+          {/* <li className="list-group-item">Fantacy</li>
+          <li className="list-group-item">Animation</li> */}
         </ul>
         <div className='row favourites-table'>  
           <div className='d-flex justify-content-between favourites-search'>
@@ -82,6 +92,22 @@ export default class Favourites extends Component {
               }
             </tbody>
           </table>
+          <div className='col-1 pagination'>
+            <nav aria-label="...">
+              <ul className="pagination">
+                <li className="page-item active">
+                  <a className="page-link" href="#">
+                    1
+                  </a>
+                </li>
+                <li className="page-item">
+                  <a className="page-link" href="#" >
+                    2
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
       </>
