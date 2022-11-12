@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Navbar from './Navbar';
 
 export default class Favourites extends Component {
   constructor() {
@@ -40,42 +41,50 @@ export default class Favourites extends Component {
       37: "Western",
     };
     return (
+      <>
+      <Navbar/>
       <div className='favourites-cont'>
-        <ul class="list-group favourites-list">
+        <ul class="list-group col-3 favourites-list">
           <li class="list-group-item active" aria-current="true">All Genres</li>
           <li class="list-group-item">Action</li>
           <li class="list-group-item">Fantacy</li>
           <li class="list-group-item">Animation</li>
         </ul>
-        <table className="table favourites-table">
-          <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Genre</th>
-              <th scope="col">Popularity</th>
-              <th scope="col">Rating</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.state.movies.map(movie => (
-                <tr>
-                  <td>
-                    <img className='movie-img' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
-                    {movie.original_title}
-                  </td>
-                  <td>{genreId[movie.genre_ids[0]]}</td>
-                  <td>{movie.popularity}</td>
-                  <td>{movie.popularity}</td>
-                  <td>{movie.vote_average}</td>
-                  <td><button className='btn btn-outline-danger'>DELETE</button></td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
+        <div className='row favourites-table'>  
+          <div className='row favourites-search'>
+            <input className='col-8' placeholder='Search Movie'></input>
+            <input className='col-4' placeholder='Search Movie'></input>
+          </div>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Popularity</th>
+                <th scope="col">Rating</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.state.movies.map(movie => (
+                  <tr>
+                    <td>
+                      <img className='movie-img' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
+                      {movie.original_title}
+                    </td>
+                    <td>{genreId[movie.genre_ids[0]]}</td>
+                    <td>{movie.popularity}</td>
+                    <td>{movie.vote_average}</td>
+                    <td><button className='btn btn-outline-danger'>DELETE</button></td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
+      </>
     )
   }
 }
