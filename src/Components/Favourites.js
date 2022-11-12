@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import Navbar from './Navbar';
 
 export default class Favourites extends Component {
   constructor() {
@@ -46,19 +45,23 @@ export default class Favourites extends Component {
       genres: ["All Genres", ...new Set(allGenre)]
     });
   }
+  handleGenre = (newGenre) => {
+    this.setState({
+      currGenre: newGenre
+    });
+  }
   render() {
     return (
       <>
-      <Navbar/>
       <div className='p-5 gap-5 favourites-cont'>
-        <ul className="list-group col-3 favourites-list">
+        <ul className="list-group col-2 favourites-list">
         {
           this.state.genres.map(currGenre => (
             (currGenre === this.state.currGenre)?
             <li className="list-group-item active">
               {currGenre}
             </li>
-            : <li className="list-group-item">
+            : <li className="list-group-item" onClick={() => this.handleGenre(currGenre)}>
               {currGenre}
             </li>
           ))
@@ -84,7 +87,7 @@ export default class Favourites extends Component {
                 this.state.movies.map(movie => (
                   <tr>
                     <td className='fw-bolder'>
-                      <img className='movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
+                      <img className='favourites-movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
                       <span>{movie.original_title}</span>
                     </td>
                     <td className='align-middle'>{this.genreId[movie.genre_ids[0]]}</td>
@@ -100,12 +103,12 @@ export default class Favourites extends Component {
             <nav aria-label="...">
               <ul className="pagination">
                 <li className="page-item active">
-                  <a className="page-link" href="#">
+                  <a className="page-link">
                     1
                   </a>
                 </li>
                 <li className="page-item">
-                  <a className="page-link" href="#" >
+                  <a className="page-link">
                     2
                   </a>
                 </li>

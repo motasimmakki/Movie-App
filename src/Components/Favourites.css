@@ -1,7 +1,7 @@
 * {
     user-select: none;
 }
-.movie-img {
+.favourites-movie-img {
     box-sizing: border-box;
     margin: 0%;
     width: 8.5rem;
@@ -10,4 +10,7 @@
 .favourites-cont {
     display: flex;
     justify-content: space-around;
+}
+.favourites-list>li {
+    cursor: pointer;
 }

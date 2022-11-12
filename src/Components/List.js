@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 // import {movies} from './getMovies'
+import Banner from './Banner'
+import './Banner.css'
 import axios from 'axios';
 
 export default class List extends Component {
@@ -37,7 +39,7 @@ export default class List extends Component {
   }
   async componentDidUpdate(prevProps, prevState) {
     console.log("CDU is Called");
-    if(this.state.currPage != prevState.currPage) {
+    if(this.state.currPage !== prevState.currPage) {
       // Using Axios.
       let data = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=${this.state.currPage}`);
       console.log(data.data);
@@ -65,9 +67,10 @@ export default class List extends Component {
     console.log("Rendered");
     // let allMovies = movies.results;
     return (
-      <> 
+      <>
+      <Banner/>
       {
-        this.state.movies.length == 0?
+        this.state.movies.length === 0?
         <div className="spinner-border text-info" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
@@ -82,7 +85,7 @@ export default class List extends Component {
                         onMouseLeave={this.handleLeave}
                         key={movie.id}
                         >
-                            <img className="card-img-top movie-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="..."/>
+                            <img className="card-img-top list-movie-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="..."/>
                             <h5 className="card-title movie-title">{movie.original_title}</h5>
                             <div className='movie-btn-wrapper'>
                               { (this.state.hover == movie.id) &&

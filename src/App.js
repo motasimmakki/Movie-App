@@ -2,12 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './Components/Navbar';
 import './Components/Navbar.css'
-import Banner from './Components/Banner'
-import './Components/Banner.css'
 import List from './Components/List'
 import './Components/List.css'
 import Favourites from './Components/Favourites'
 import './Components/Favourites.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
@@ -15,7 +14,13 @@ function App() {
       {/* <Navbar/>
       <Banner/>
       <List/> */}
-      <Favourites/>
+      <BrowserRouter>
+      <Navbar/>
+        <Routes>
+          <Route path="/" element={<List/>}/>
+          <Route path="/fav" element={<Favourites/>}/>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
