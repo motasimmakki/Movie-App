@@ -4,3 +4,14 @@
     width: 8.5rem;
     height: 4.5rem;
 }
+.favourites-cont {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5rem;
+}
+.favourites-list {
+    width: 20%;
+}
+.favourites-table {
+    width: 60%;
+}

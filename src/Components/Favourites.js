@@ -18,15 +18,43 @@ export default class Favourites extends Component {
     });
   }
   render() {
+    let genreId = {
+      28: "Action",
+      12: "Adventure",
+      16: "Animation",
+      35: "Comedy",
+      80: "Crime",
+      99: "Documentary",
+      18: "Drama",
+      10751: "Family",
+      14: "Fantasy",
+      36: "History",
+      27: "Horror",
+      10402: "Music",
+      9648: "Mystery",
+      10749: "Romance",
+      878: "Sci-Fi",
+      10770: "TV",
+      53: "Thriller",
+      10752: "War",
+      37: "Western",
+    };
     return (
-      <div>
-        <table className="table">
+      <div className='favourites-cont'>
+        <ul class="list-group favourites-list">
+          <li class="list-group-item active" aria-current="true">All Genres</li>
+          <li class="list-group-item">Action</li>
+          <li class="list-group-item">Fantacy</li>
+          <li class="list-group-item">Animation</li>
+        </ul>
+        <table className="table favourites-table">
           <thead>
             <tr>
               <th scope="col">Title</th>
               <th scope="col">Genre</th>
               <th scope="col">Popularity</th>
               <th scope="col">Rating</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -37,9 +65,11 @@ export default class Favourites extends Component {
                     <img className='movie-img' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
                     {movie.original_title}
                   </td>
-                  {/* <td>{genreId[movie.genre_ids[0]]}</td> */}
+                  <td>{genreId[movie.genre_ids[0]]}</td>
+                  <td>{movie.popularity}</td>
                   <td>{movie.popularity}</td>
                   <td>{movie.vote_average}</td>
+                  <td><button className='btn btn-outline-danger'>DELETE</button></td>
                 </tr>
               ))
             }
