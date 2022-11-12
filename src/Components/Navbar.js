@@ -5,10 +5,12 @@ export default class Navbar extends Component {
   render() {
     return (
       <div className='navbar-cont'>
-        <Link to="/">
+        <Link style={{textDecoration: 'none', color: 'maroon'}} 
+        to="/">
           <h1>Movies App</h1>
         </Link>
-        <Link to="/fav">
+        <Link style={{textDecoration: 'none', color: 'maroon'}} 
+        to="/fav">
           <h2>Favourites</h2>
         </Link>
       </div>
