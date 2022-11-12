@@ -43,7 +43,7 @@ export default class Favourites extends Component {
     return (
       <>
       <Navbar/>
-      <div className='favourites-cont'>
+      <div className='p-5 gap-5 favourites-cont'>
         <ul class="list-group col-3 favourites-list">
           <li class="list-group-item active" aria-current="true">All Genres</li>
           <li class="list-group-item">Action</li>
@@ -51,12 +51,12 @@ export default class Favourites extends Component {
           <li class="list-group-item">Animation</li>
         </ul>
         <div className='row favourites-table'>  
-          <div className='row favourites-search'>
-            <input className='col-8' placeholder='Search Movie'></input>
-            <input className='col-4' placeholder='Search Movie'></input>
+          <div className='d-flex justify-content-between favourites-search'>
+            <input className='col-7' placeholder='Search movie. . .'></input>
+            <input className='col-4' placeholder='Result per page' type='number'></input>
           </div>
-          <table className="table">
-            <thead>
+          <table className="table mt-3">
+            <thead className='border-3 border-bottom border-secondary'>
               <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Genre</th>
@@ -69,14 +69,14 @@ export default class Favourites extends Component {
               {
                 this.state.movies.map(movie => (
                   <tr>
-                    <td>
-                      <img className='movie-img' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
-                      {movie.original_title}
+                    <td className='fw-bolder'>
+                      <img className='movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
+                      <span>{movie.original_title}</span>
                     </td>
-                    <td>{genreId[movie.genre_ids[0]]}</td>
-                    <td>{movie.popularity}</td>
-                    <td>{movie.vote_average}</td>
-                    <td><button className='btn btn-outline-danger'>DELETE</button></td>
+                    <td className='align-middle'>{genreId[movie.genre_ids[0]]}</td>
+                    <td className='align-middle'>{movie.popularity}</td>
+                    <td className='align-middle'>{movie.vote_average}</td>
+                    <td className='align-middle'><button className='btn btn-outline-danger'>DELETE</button></td>
                   </tr>
                 ))
               }
