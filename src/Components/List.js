@@ -10,7 +10,8 @@ export default class List extends Component {
     this.state = {
       hover: '',
       movies: [],
-      currPage: 1
+      currPage: 1, 
+      favourites: []
     }
   }
   handleEnter = (id) => {
@@ -63,6 +64,17 @@ export default class List extends Component {
       currPage: this.state.currPage - 1
     });
   }
+  handleFavouritesList = (movieId) => {
+    if(this.state.favourites.includes(movieId)) {
+      this.setState({
+        favourites: this.state.favourites.filter(movie => (movie !== movieId))
+      })
+    } else {
+      this.setState({
+        favourites: [...this.state.favourites, movieId]
+      });
+    }
+  }
   render() {
     console.log("Rendered");
     // let allMovies = movies.results;
@@ -88,10 +100,16 @@ export default class List extends Component {
                             <img className="card-img-top list-movie-img" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="..."/>
                             <h5 className="card-title movie-title">{movie.original_title}</h5>
                             <div className='movie-btn-wrapper'>
-                              { (this.state.hover == movie.id) &&
-                                <a href="#" className="btn btn-info movie-btn">
-                                  Add To Favourites
-                                </a>
+                              { (this.state.hover === movie.id) && 
+                                (this.state.favourites.includes(movie.id)?
+                                  <button className="btn btn-danger movie-btn" onClick={() => this.handleFavouritesList(movie.id)}>
+                                    Remove From Favourites
+                                  </button>
+                                  : 
+                                  <button className="btn btn-info movie-btn" onClick={() => this.handleFavouritesList(movie.id)}>
+                                    Add To Favourites
+                                  </button>
+                                )
                               }
                             </div>
                         </div>
