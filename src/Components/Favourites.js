@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+// import axios from 'axios';
 import { favouritesList } from './List';
 
 let updatedList = [];
@@ -35,7 +35,7 @@ export default class Favourites extends Component {
     };
   }
   async componentDidMount() {
-    console.log(this.state.favourites);
+    // console.log(this.state.favourites);
     // Using Axios.
     // let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
     // // console.log(data.data);
@@ -63,8 +63,22 @@ export default class Favourites extends Component {
               )]
     });
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     updatedList = [...this.state.favourites];
+    if(this.state.favourites !== prevState.favourites) {
+      let allGenre = this.state.favourites.map(movie => this.genreId[movie.genre_ids[0]]);
+      this.setState({
+        movies: [...this.state.favourites],
+        genres: ["All Genres", ...new Set(allGenre)]
+      });
+    }
+    console.log(updatedList);
+  }
+  handleDelete = (movieId)  => {
+    // console.log(movieId);
+    this.setState({
+      favourites: this.state.favourites.filter(movie => movie.id !== movieId)
+    });
   }
   render() {
     return (
@@ -109,7 +123,12 @@ export default class Favourites extends Component {
                     <td className='align-middle'>{this.genreId[movie.genre_ids[0]]}</td>
                     <td className='align-middle'>{movie.popularity}</td>
                     <td className='align-middle'>{movie.vote_average}</td>
-                    <td className='align-middle'><button className='btn btn-outline-danger'>DELETE</button></td>
+                    <td className='align-middle'>
+                      <button className='btn btn-outline-danger' 
+                      onClick={() => this.handleDelete(movie.id)}>
+                        DELETE
+                      </button>
+                    </td>
                   </tr>
                 ))
               }

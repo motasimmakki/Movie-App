@@ -5,7 +5,7 @@ import './Banner.css'
 import axios from 'axios';
 import { updatedList } from './Favourites';
 
-let favouritesList = [...updatedList];
+let favouritesList = [];
 
 export default class List extends Component {
   constructor() {
@@ -28,6 +28,7 @@ export default class List extends Component {
     });
   }
   async componentDidMount() {
+    favouritesList = [...updatedList];
     console.log(favouritesList);
     // console.log("CDM is Called");
     // Using fetch.
@@ -39,7 +40,8 @@ export default class List extends Component {
     // console.log(data.data);
 
     this.setState({
-      movies: [...data.data.results]
+      movies: [...data.data.results],
+      favourites: favouritesList.map(movie => movie.id)
     });
   }
   async componentDidUpdate(prevProps, prevState) {
