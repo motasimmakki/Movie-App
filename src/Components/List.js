@@ -14,7 +14,7 @@ export default class List extends Component {
       hover: '',
       movies: [],
       currPage: 1,
-      favourites: []
+      favourites: favouritesList.map(movie => movie.id)
     }
   }
   handleEnter = (id) => {
@@ -28,6 +28,7 @@ export default class List extends Component {
     });
   }
   async componentDidMount() {
+    console.log(favouritesList);
     // console.log("CDM is Called");
     // Using fetch.
     // let result = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");

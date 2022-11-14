@@ -9,7 +9,8 @@ export default class Favourites extends Component {
     this.state = {
       movies: [],
       genres: [],
-      currGenre: "All Genres"
+      currGenre: "All Genres",
+      favourites: [...favouritesList]
     }
     this.genreId = {
       28: "Action",
@@ -34,6 +35,7 @@ export default class Favourites extends Component {
     };
   }
   async componentDidMount() {
+    console.log(this.state.favourites);
     // Using Axios.
     let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
     // console.log(data.data);
@@ -53,8 +55,7 @@ export default class Favourites extends Component {
     });
   }
   componentDidUpdate() {
-    // updatedList = [...favouritesList];
-    console.log(updatedList);
+    updatedList = [...this.state.favourites];
   }
   render() {
     return (
