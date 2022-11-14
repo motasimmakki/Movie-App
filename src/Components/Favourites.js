@@ -37,15 +37,20 @@ export default class Favourites extends Component {
   async componentDidMount() {
     console.log(this.state.favourites);
     // Using Axios.
-    let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
-    // console.log(data.data);
+    // let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
+    // // console.log(data.data);
 
-    let allGenre = [...data.data.results.map(movie => {
-      return this.genreId[movie.genre_ids[0]];
-    })];
+    // let allGenre = [...data.data.results.map(movie => {
+    //   return this.genreId[movie.genre_ids[0]];
+    // })];
 
+    // this.setState({
+    //   movies: [...data.data.results],
+    //   genres: ["All Genres", ...new Set(allGenre)]
+    // });
+    let allGenre = this.state.favourites.map(movie => this.genreId[movie.genre_ids[0]]);
     this.setState({
-      movies: [...data.data.results],
+      movies: [...this.state.favourites],
       genres: ["All Genres", ...new Set(allGenre)]
     });
   }
