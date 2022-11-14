@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Favourites_List } from './List';
 
 export default class Favourites extends Component {
   constructor() {
@@ -49,6 +50,10 @@ export default class Favourites extends Component {
     this.setState({
       currGenre: newGenre
     });
+  }
+  componentDidUpdate() {
+    // console.log(Favourites_List.state.favourites);
+    // console.log(Favourites_List.state);
   }
   render() {
     return (

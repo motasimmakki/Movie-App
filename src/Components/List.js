@@ -4,14 +4,15 @@ import Banner from './Banner'
 import './Banner.css'
 import axios from 'axios';
 
+export const favouritesList = ["Working"]
+
 export default class List extends Component {
   constructor() {
     super();
     this.state = {
       hover: '',
       movies: [],
-      currPage: 1, 
-      favourites: []
+      currPage: 1
     }
   }
   handleEnter = (id) => {
@@ -49,6 +50,7 @@ export default class List extends Component {
         movies: [...data.data.results]
       });
     }
+    console.log(favouritesList);
   }
   componentWillUnmount() {
     console.log("CWU is Called");
@@ -65,7 +67,7 @@ export default class List extends Component {
     });
   }
   handleFavouritesList = (movieId) => {
-    if(this.state.favourites.includes(movieId)) {
+    if(this.state.favourites?.includes(movieId)) {
       this.setState({
         favourites: this.state.favourites.filter(movie => (movie !== movieId))
       })
@@ -101,7 +103,7 @@ export default class List extends Component {
                             <h5 className="card-title movie-title">{movie.original_title}</h5>
                             <div className='movie-btn-wrapper'>
                               { (this.state.hover === movie.id) && 
-                                (this.state.favourites.includes(movie.id)?
+                                (this.state.favourites?.includes(movie.id)?
                                   <button className="btn btn-danger movie-btn" onClick={() => this.handleFavouritesList(movie.id)}>
                                     Remove From Favourites
                                   </button>
@@ -144,7 +146,6 @@ export default class List extends Component {
     )
   }
 }
-
 
 // Movie API Link:
 // https://api.themoviedb.org/3/movie/550?api_key=fa7127a13c542d5323ce1a236b9df18a
