@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Favourites_List } from './List';
+import { favouritesList } from './List';
 
+let updatedList = [];
 export default class Favourites extends Component {
   constructor() {
     super();
@@ -35,7 +36,7 @@ export default class Favourites extends Component {
   async componentDidMount() {
     // Using Axios.
     let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
-    console.log(data.data);
+    // console.log(data.data);
 
     let allGenre = [...data.data.results.map(movie => {
       return this.genreId[movie.genre_ids[0]];
@@ -52,8 +53,8 @@ export default class Favourites extends Component {
     });
   }
   componentDidUpdate() {
-    // console.log(Favourites_List.state.favourites);
-    // console.log(Favourites_List.state);
+    // updatedList = [...favouritesList];
+    console.log(updatedList);
   }
   render() {
     return (
@@ -126,3 +127,5 @@ export default class Favourites extends Component {
     )
   }
 }
+
+export {updatedList};

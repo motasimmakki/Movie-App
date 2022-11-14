@@ -11,10 +11,10 @@ export default class Banner extends Component {
     }
   }
   async componentDidMount() {
-    console.log("CDM is Called");
+    // console.log("CDM is Called");
     // Using Axios.
     let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
-    console.log(data.data);
+    // console.log(data.data);
     this.setState({
       movies: [...data.data.results],
       idx: Math.floor(Math.random() * 21)

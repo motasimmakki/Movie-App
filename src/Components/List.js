@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import Banner from './Banner'
 import './Banner.css'
 import axios from 'axios';
+import { updatedList } from './Favourites';
 
-export const favouritesList = ["Working"]
+let favouritesList = [...updatedList];
 
 export default class List extends Component {
   constructor() {
@@ -12,7 +13,8 @@ export default class List extends Component {
     this.state = {
       hover: '',
       movies: [],
-      currPage: 1
+      currPage: 1,
+      favourites: []
     }
   }
   handleEnter = (id) => {
@@ -26,34 +28,33 @@ export default class List extends Component {
     });
   }
   async componentDidMount() {
-    console.log("CDM is Called");
+    // console.log("CDM is Called");
     // Using fetch.
     // let result = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
     // let data = await result.json();
 
     // Using Axios.
     let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
-    console.log(data.data);
+    // console.log(data.data);
 
     this.setState({
       movies: [...data.data.results]
     });
   }
   async componentDidUpdate(prevProps, prevState) {
-    console.log("CDU is Called");
+    // console.log("CDU is Called");
     if(this.state.currPage !== prevState.currPage) {
       // Using Axios.
       let data = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=${this.state.currPage}`);
-      console.log(data.data);
+      // console.log(data.data);
   
       this.setState({
         movies: [...data.data.results]
       });
     }
-    console.log(favouritesList);
   }
   componentWillUnmount() {
-    console.log("CWU is Called");
+    // console.log("CWU is Called");
   }
   handlePageNext = () => {
     this.setState({
@@ -66,19 +67,23 @@ export default class List extends Component {
       currPage: this.state.currPage - 1
     });
   }
-  handleFavouritesList = (movieId) => {
+  handleFavouritesList = (movieId, movieObj) => {
     if(this.state.favourites?.includes(movieId)) {
       this.setState({
         favourites: this.state.favourites.filter(movie => (movie !== movieId))
       })
+      favouritesList = favouritesList.filter(movie => movie["id"] !== movieId);
+      // console.log(movieObj["id"]);
     } else {
       this.setState({
         favourites: [...this.state.favourites, movieId]
       });
+      favouritesList.push(movieObj);
     }
+    console.log(favouritesList);
   }
   render() {
-    console.log("Rendered");
+    // console.log("Rendered");
     // let allMovies = movies.results;
     return (
       <>
@@ -104,11 +109,11 @@ export default class List extends Component {
                             <div className='movie-btn-wrapper'>
                               { (this.state.hover === movie.id) && 
                                 (this.state.favourites?.includes(movie.id)?
-                                  <button className="btn btn-danger movie-btn" onClick={() => this.handleFavouritesList(movie.id)}>
+                                  <button className="btn btn-danger movie-btn" onClick={() => this.handleFavouritesList(movie.id, movie)}>
                                     Remove From Favourites
                                   </button>
                                   : 
-                                  <button className="btn btn-info movie-btn" onClick={() => this.handleFavouritesList(movie.id)}>
+                                  <button className="btn btn-info movie-btn" onClick={() => this.handleFavouritesList(movie.id, movie)}>
                                     Add To Favourites
                                   </button>
                                 )
@@ -146,6 +151,8 @@ export default class List extends Component {
     )
   }
 }
+
+export {favouritesList};
 
 // Movie API Link:
 // https://api.themoviedb.org/3/movie/550?api_key=fa7127a13c542d5323ce1a236b9df18a
