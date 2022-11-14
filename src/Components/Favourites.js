@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 // import axios from 'axios';
-import { favouritesList } from './List';
 
-let updatedList = [];
 export default class Favourites extends Component {
   constructor() {
     super();
@@ -10,7 +8,7 @@ export default class Favourites extends Component {
       movies: [],
       genres: [],
       currGenre: "All Genres",
-      favourites: [...favouritesList]
+      favourites: JSON.parse(localStorage.getItem("movies"))
     }
     this.genreId = {
       28: "Action",
@@ -64,7 +62,7 @@ export default class Favourites extends Component {
     });
   }
   componentDidUpdate(prevProps, prevState) {
-    updatedList = [...this.state.favourites];
+    localStorage.setItem("movies", JSON.stringify(this.state.favourites));
     if(this.state.favourites !== prevState.favourites) {
       let allGenre = this.state.favourites.map(movie => this.genreId[movie.genre_ids[0]]);
       this.setState({
@@ -72,7 +70,6 @@ export default class Favourites extends Component {
         genres: ["All Genres", ...new Set(allGenre)]
       });
     }
-    console.log(updatedList);
   }
   handleDelete = (movieId)  => {
     // console.log(movieId);
@@ -156,5 +153,3 @@ export default class Favourites extends Component {
     )
   }
 }
-
-export {updatedList};

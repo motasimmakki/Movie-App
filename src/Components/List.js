@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import Banner from './Banner'
 import './Banner.css'
 import axios from 'axios';
-import { updatedList } from './Favourites';
 
 let favouritesList = [];
 
@@ -28,8 +27,8 @@ export default class List extends Component {
     });
   }
   async componentDidMount() {
-    favouritesList = [...updatedList];
-    console.log(favouritesList);
+    favouritesList = JSON.parse(localStorage.getItem("movies"));
+    // console.log(favouritesList);
     // console.log("CDM is Called");
     // Using fetch.
     // let result = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
@@ -83,7 +82,8 @@ export default class List extends Component {
       });
       favouritesList.push(movieObj);
     }
-    console.log(favouritesList);
+    // console.log(favouritesList);
+    localStorage.setItem("movies", JSON.stringify(favouritesList));
   }
   render() {
     // console.log("Rendered");
@@ -154,8 +154,6 @@ export default class List extends Component {
     )
   }
 }
-
-export {favouritesList};
 
 // Movie API Link:
 // https://api.themoviedb.org/3/movie/550?api_key=fa7127a13c542d5323ce1a236b9df18a
