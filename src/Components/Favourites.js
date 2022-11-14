@@ -56,7 +56,11 @@ export default class Favourites extends Component {
   }
   handleGenre = (newGenre) => {
     this.setState({
-      currGenre: newGenre
+      currGenre: newGenre,
+      movies: (newGenre === "All Genres")? [...this.state.favourites]
+              :[...this.state.favourites.filter(movie => 
+                this.genreId[movie.genre_ids[0]] === newGenre
+              )]
     });
   }
   componentDidUpdate() {
