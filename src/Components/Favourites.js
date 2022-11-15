@@ -46,7 +46,8 @@ export default class Favourites extends Component {
     //   movies: [...data.data.results],
     //   genres: ["All Genres", ...new Set(allGenre)]
     // });
-    let allGenre = this.state.favourites.map(movie => this.genreId[movie.genre_ids[0]]);
+    console.log(this.state.favourites);
+    let allGenre = this.state.favourites?.map(movie => this.genreId[movie.genre_ids[0]]);
     this.setState({
       movies: [...this.state.favourites],
       genres: ["All Genres", ...new Set(allGenre)]
