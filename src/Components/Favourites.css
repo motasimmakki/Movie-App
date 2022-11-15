@@ -1,16 +1,38 @@
 * {
     user-select: none;
+} 
+html {
+    overflow-y: overlay;
 }
-.favourites-movie-img {
+.fav-movie-img {
     box-sizing: border-box;
     margin: 0%;
     width: 8.5rem;
     height: 4.5rem;
 }
-.favourites-cont {
+.fav-cont {
     display: flex;
     justify-content: space-around;
 }
-.favourites-list>li {
+.fav-list>li {
     cursor: pointer;
+}
+.fav-search * {
+    padding: 0.5%;
+    height: 2rem;
+}
+.fav-table {
+    padding: 0% 1% 0% 1%;
+    width: 100%;
+}
+.fav-table-row {
+    box-sizing: border-box;
+    width: 100%;
+    height: 6rem;
+}
+.fav-movie-title {
+    width: 60%;
+}
+.fav-movie-info {
+    width: 10%;
 }

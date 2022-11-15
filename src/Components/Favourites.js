@@ -87,8 +87,8 @@ export default class Favourites extends Component {
   render() {
     return (
       <>
-      <div className='p-5 gap-5 favourites-cont'>
-        <ul className="list-group col-2 favourites-list">
+      <div className='p-5 gap-5 fav-cont'>
+        <ul className="list-group col-2 fav-list">
         {
           this.state.genres.map(currGenre => (
             (currGenre === this.state.currGenre)?
@@ -101,12 +101,12 @@ export default class Favourites extends Component {
           ))
         }
         </ul>
-        <div className='row favourites-table'>  
-          <div className='d-flex justify-content-between favourites-search'>
+        <div className='fav-table'>  
+          <div className='d-flex justify-content-between fav-search'>
             <input className='col-7' placeholder='Search movie. . .' onKeyUp={this.handleSearch}></input>
             <input className='col-4' placeholder='Result per page' type='number'></input>
           </div>
-          <table className="table mt-3">
+          <table className="table mt-3 fav-table">
             <thead className='border-3 border-bottom border-secondary'>
               <tr>
                 <th scope="col">Title</th>
@@ -119,15 +119,15 @@ export default class Favourites extends Component {
             <tbody>
               {
                 this.state.movies.map(movie => (
-                  <tr>
-                    <td className='fw-bolder'>
-                      <img className='favourites-movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
+                  <tr className='fav-table-row'>
+                    <td className='fw-bolder fav-movie-title'>
+                      <img className='fav-movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
                       <span>{movie.original_title}</span>
                     </td>
-                    <td className='align-middle'>{this.genreId[movie.genre_ids[0]]}</td>
-                    <td className='align-middle'>{movie.popularity}</td>
-                    <td className='align-middle'>{movie.vote_average}</td>
-                    <td className='align-middle'>
+                    <td className='align-middle fav-movie-info'>{this.genreId[movie.genre_ids[0]]}</td>
+                    <td className='align-middle fav-movie-info'>{movie.popularity}</td>
+                    <td className='align-middle fav-movie-info'>{movie.vote_average}</td>
+                    <td className='align-middle fav-movie-info'>
                       <button className='btn btn-outline-danger' 
                       onClick={() => this.handleDelete(movie.id)}>
                         DELETE
