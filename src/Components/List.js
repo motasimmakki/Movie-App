@@ -78,7 +78,7 @@ export default class List extends Component {
       // console.log(movieObj["id"]);
     } else {
       this.setState({
-        favourites: [...this.state.favourites, movieId]
+        favourites: this.state.favourites? [...this.state.favourites, movieId]: [movieId]
       });
       favouritesList.push(movieObj);
     }
