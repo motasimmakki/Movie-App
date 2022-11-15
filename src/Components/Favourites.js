@@ -57,12 +57,14 @@ export default class Favourites extends Component {
     });
   }
   handleGenre = (newGenre) => {
+    let filteredMovies = (newGenre === "All Genres")? 
+    [...this.state.favourites]: [...this.state.favourites.filter(movie => 
+      this.genreId[movie.genre_ids[0]] === newGenre
+    )];
     this.setState({
       currGenre: newGenre,
-      movies: (newGenre === "All Genres")? [...this.state.favourites]
-              :[...this.state.favourites.filter(movie => 
-                this.genreId[movie.genre_ids[0]] === newGenre
-              )]
+      movies: filteredMovies,
+      totalPages: Array.apply(null, Array(Math.ceil(filteredMovies.length/this.state.pageSize)))
     });
   }
   componentDidUpdate(prevProps, prevState) {
@@ -168,11 +170,6 @@ export default class Favourites extends Component {
                     )
                   ))
                 }
-                {/* <li className="page-item active">
-                  <a className="page-link">
-                    1
-                  </a>
-                </li> */}
               </ul>
             </nav>
           </div>
