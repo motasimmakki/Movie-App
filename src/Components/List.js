@@ -40,7 +40,7 @@ export default class List extends Component {
 
     this.setState({
       movies: [...data.data.results],
-      favourites: favouritesList.map(movie => movie.id)
+      favourites: favouritesList?.map(movie => movie.id)
     });
   }
   async componentDidUpdate(prevProps, prevState) {
