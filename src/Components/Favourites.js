@@ -8,7 +8,10 @@ export default class Favourites extends Component {
       movies: [],
       genres: [],
       currGenre: "All Genres",
-      favourites: JSON.parse(localStorage.getItem("movies"))
+      favourites: JSON.parse(localStorage.getItem("movies")),
+      pageSize: 10,
+      totalPages: Array.apply(null, Array(Math.ceil(JSON.parse(localStorage.getItem("movies")).length/10))),
+      currPage: 0
     }
     this.genreId = {
       28: "Action",
@@ -34,6 +37,7 @@ export default class Favourites extends Component {
   }
   async componentDidMount() {
     // console.log(this.state.favourites);
+    // console.log(this.state.totalPages);
     // Using Axios.
     // let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=fa7127a13c542d5323ce1a236b9df18a&language=en-US&page=1");
     // // console.log(data.data);
@@ -46,7 +50,6 @@ export default class Favourites extends Component {
     //   movies: [...data.data.results],
     //   genres: ["All Genres", ...new Set(allGenre)]
     // });
-    console.log(this.state.favourites);
     let allGenre = this.state.favourites?.map(movie => this.genreId[movie.genre_ids[0]]);
     this.setState({
       movies: [...this.state.favourites],
@@ -83,6 +86,12 @@ export default class Favourites extends Component {
     this.setState({
       movies: this.state.favourites?.filter(movie => 
         movie.original_title.toLowerCase().includes(searchStr))
+    });
+  }
+  handlePageChange = (event) => {
+    let pageNo = event.target.innerText-1;
+    this.setState({
+      currPage: pageNo
     });
   }
   render() {
@@ -142,16 +151,28 @@ export default class Favourites extends Component {
           <div className='col-1 pagination'>
             <nav aria-label="...">
               <ul className="pagination">
-                <li className="page-item active">
+                {
+                  this.state.totalPages.map((page, idx) => (
+                    (this.state.currPage === idx)? (
+                      <li className="page-item active">
+                        <a className="page-link" onClick={this.handlePageChange}>
+                          {idx + 1}
+                        </a>
+                      </li>    
+                    ): (
+                      <li className="page-item">
+                        <a className="page-link" onClick={this.handlePageChange}>
+                          {idx + 1}
+                        </a>
+                      </li>    
+                    )
+                  ))
+                }
+                {/* <li className="page-item active">
                   <a className="page-link">
                     1
                   </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link">
-                    2
-                  </a>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>

@@ -14,7 +14,7 @@ html {
     display: flex;
     justify-content: space-around;
 }
-.fav-list>li {
+.fav-list>li , .pagination>li {
     cursor: pointer;
 }
 .fav-search * {
