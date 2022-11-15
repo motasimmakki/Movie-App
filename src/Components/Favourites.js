@@ -77,6 +77,13 @@ export default class Favourites extends Component {
       favourites: this.state.favourites.filter(movie => movie.id !== movieId)
     });
   }
+  handleSearch = (event) => {
+    let searchStr = event.target.value.toLowerCase();
+    this.setState({
+      movies: this.state.favourites?.filter(movie => 
+        movie.original_title.toLowerCase().includes(searchStr))
+    });
+  }
   render() {
     return (
       <>
@@ -96,7 +103,7 @@ export default class Favourites extends Component {
         </ul>
         <div className='row favourites-table'>  
           <div className='d-flex justify-content-between favourites-search'>
-            <input className='col-7' placeholder='Search movie. . .'></input>
+            <input className='col-7' placeholder='Search movie. . .' onKeyUp={this.handleSearch}></input>
             <input className='col-4' placeholder='Result per page' type='number'></input>
           </div>
           <table className="table mt-3">
