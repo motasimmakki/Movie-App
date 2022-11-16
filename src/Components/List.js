@@ -80,7 +80,10 @@ export default class List extends Component {
       this.setState({
         favourites: this.state.favourites? [...this.state.favourites, movieId]: [movieId]
       });
-      favouritesList = favouritesList? favouritesList.push(movieObj): [movieObj];
+      if(favouritesList)
+        favouritesList.push(movieObj)
+      else 
+        favouritesList = [movieObj];
     }
     // console.log(favouritesList);
     localStorage.setItem("movies", JSON.stringify(favouritesList));
