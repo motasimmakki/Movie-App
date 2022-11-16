@@ -64,7 +64,8 @@ export default class Favourites extends Component {
     this.setState({
       currGenre: newGenre,
       movies: filteredMovies,
-      totalPages: Array.apply(null, Array(Math.ceil(filteredMovies.length/this.state.pageSize)))
+      totalPages: Array.apply(null, Array(Math.ceil(filteredMovies.length/this.state.pageSize))),
+      currPage: 0
     });
   }
   componentDidUpdate(prevProps, prevState) {
@@ -132,7 +133,7 @@ export default class Favourites extends Component {
               {
                 this.state.movies.map((movie, idx) => (
                   (idx >= (((this.state.currPage + 1) * this.state.pageSize) - this.state.pageSize)) &&
-                  (idx <= ((this.state.currPage + 1) * this.state.pageSize)) &&
+                  (idx < ((this.state.currPage + 1) * this.state.pageSize)) &&
                   (
                     <tr className='fav-table-row'>
                       <td className='fw-bolder fav-movie-title'>
