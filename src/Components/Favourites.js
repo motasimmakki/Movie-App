@@ -116,7 +116,7 @@ export default class Favourites extends Component {
         <div className='fav-table'>  
           <div className='d-flex justify-content-between fav-search'>
             <input className='col-7' placeholder='Search movie. . .' onKeyUp={this.handleSearch}></input>
-            <input className='col-4' placeholder='Result per page' type='number'></input>
+            <input className='col-4' placeholder='Result per page (max 10 by default)' type='number'></input>
           </div>
           <table className="table mt-3 fav-table">
             <thead className='border-3 border-bottom border-secondary'>
@@ -130,22 +130,26 @@ export default class Favourites extends Component {
             </thead>
             <tbody>
               {
-                this.state.movies.map(movie => (
-                  <tr className='fav-table-row'>
-                    <td className='fw-bolder fav-movie-title'>
-                      <img className='fav-movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
-                      <span>{movie.original_title}</span>
-                    </td>
-                    <td className='align-middle fav-movie-info'>{this.genreId[movie.genre_ids[0]]}</td>
-                    <td className='align-middle fav-movie-info'>{movie.popularity}</td>
-                    <td className='align-middle fav-movie-info'>{movie.vote_average}</td>
-                    <td className='align-middle fav-movie-info'>
-                      <button className='btn btn-outline-danger' 
-                      onClick={() => this.handleDelete(movie.id)}>
-                        DELETE
-                      </button>
-                    </td>
-                  </tr>
+                this.state.movies.map((movie, idx) => (
+                  (idx >= (((this.state.currPage + 1) * this.state.pageSize) - this.state.pageSize)) &&
+                  (idx <= ((this.state.currPage + 1) * this.state.pageSize)) &&
+                  (
+                    <tr className='fav-table-row'>
+                      <td className='fw-bolder fav-movie-title'>
+                        <img className='fav-movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
+                        <span>{movie.original_title}</span>
+                      </td>
+                      <td className='align-middle fav-movie-info'>{this.genreId[movie.genre_ids[0]]}</td>
+                      <td className='align-middle fav-movie-info'>{movie.popularity}</td>
+                      <td className='align-middle fav-movie-info'>{movie.vote_average}</td>
+                      <td className='align-middle fav-movie-info'>
+                        <button className='btn btn-outline-danger' 
+                        onClick={() => this.handleDelete(movie.id)}>
+                          DELETE
+                        </button>
+                      </td>
+                    </tr>
+                  )
                 ))
               }
             </tbody>
