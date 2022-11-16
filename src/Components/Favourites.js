@@ -97,6 +97,16 @@ export default class Favourites extends Component {
       currPage: pageNo
     });
   }
+  handlePageSize = (event) => {
+    if(event.key === "Enter") {
+      let newPageSize = event.target.value? event.target.value: 10;
+      // console.log(newPageSize);
+      this.setState({
+        pageSize: newPageSize,
+        totalPages: Array.apply(null, Array(Math.ceil(this.state.favourites.length/newPageSize)))
+      });
+    }
+  }
   render() {
     return (
       <>
@@ -116,8 +126,13 @@ export default class Favourites extends Component {
         </ul>
         <div className='fav-table'>  
           <div className='d-flex justify-content-between fav-search'>
-            <input className='col-7' placeholder='Search movie. . .' onKeyUp={this.handleSearch}></input>
-            <input className='col-4' placeholder='Result per page (max 10 by default)' type='number'></input>
+            <input className='col-7' 
+            placeholder='Search movie. . .' 
+            onKeyUp={this.handleSearch}></input>
+            <input className='col-4' 
+            placeholder='Result per page (max 10 by default)' 
+            type='number/submit'
+            onKeyDown={this.handlePageSize}></input>
           </div>
           <table className="table mt-3 fav-table">
             <thead className='border-3 border-bottom border-secondary'>
