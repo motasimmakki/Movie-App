@@ -122,6 +122,20 @@ export default class Favourites extends Component {
       });
     }
   }
+  sortPopularityAsc = () => {
+    this.setState({
+      movies: this.state.movies.sort((firstMovie, secondMovie) => {
+        return firstMovie.popularity - secondMovie.popularity;
+      })
+    });
+  }
+  sortPopularityDesc = () => {
+    this.setState({
+      movies: this.state.movies.sort((firstMovie, secondMovie) => {
+        return secondMovie.popularity - firstMovie.popularity;
+      })
+    });
+  }
   render() {
     return (
       <>
@@ -155,9 +169,9 @@ export default class Favourites extends Component {
                 <th scope="col">Title</th>
                 <th scope="col">Genre</th>
                 <th scope="col">
-                  <i class="fa-solid fa-sort-up"></i>
+                  <i class="fa-solid fa-sort-up" onClick={this.sortPopularityAsc}></i>
                   Popularity
-                  <i class="fa-solid fa-sort-down"></i>
+                  <i class="fa-solid fa-sort-down" onClick={this.sortPopularityDesc}></i>
                 </th>
                 <th scope="col">
                   <i class="fa-solid fa-sort-up"></i>
