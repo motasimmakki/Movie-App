@@ -86,10 +86,19 @@ export default class Favourites extends Component {
   }
   handleSearch = (event) => {
     let searchStr = event.target.value.toLowerCase();
-    this.setState({
-      movies: this.state.favourites?.filter(movie => 
-        movie.original_title.toLowerCase().includes(searchStr))
-    });
+    if(searchStr === ""){
+      this.setState({
+        movies: (this.state.currGenre === "All Genres")? 
+        [...this.state.favourites]: [...this.state.favourites.filter(movie => 
+          this.genreId[movie.genre_ids[0]] === this.state.currGenre
+        )]
+      });
+    } else {
+      this.setState({
+        movies: this.state.movies?.filter(movie => 
+          movie.original_title.toLowerCase().includes(searchStr))
+      });
+    }
   }
   handlePageChange = (event) => {
     let pageNo = event.target.innerText-1;
