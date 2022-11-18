@@ -203,7 +203,8 @@ export default class Favourites extends Component {
                   (
                     <tr key={movie.id} className='fav-table-row'>
                       <td className='fw-bolder fav-movie-title'>
-                        <img className='fav-movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
+                        <img className='fav-movie-img me-3' 
+                        src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
                         <span>{movie.original_title}</span>
                       </td>
                       <td className='align-middle fav-movie-info'>{this.genreId[movie.genre_ids[0]]}</td>

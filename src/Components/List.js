@@ -100,7 +100,7 @@ export default class List extends Component {
           <span className="visually-hidden">Loading...</span>
         </div>
         :<>
-          <div>
+          <div className='item'>
             <h3 className='trending'>Trending</h3>
             <div className='movies-list'>
                 {this.state.movies.map(movie => {
