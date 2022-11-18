@@ -77,6 +77,12 @@ export default class Favourites extends Component {
         genres: ["All Genres", ...new Set(allGenre)]
       });
     }
+    if(this.state.movies !== prevState.movies) {
+      console.log(this.state.movies.length);
+      this.setState({
+        totalPages: Array.apply(null, Array(Math.ceil(this.state.movies.length/this.state.pageSize)))
+      });
+    }
   }
   handleDelete = (movieId)  => {
     // console.log(movieId);
