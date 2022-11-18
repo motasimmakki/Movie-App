@@ -34,6 +34,7 @@ export default class Favourites extends Component {
       10752: "War",
       37: "Western",
     };
+    this.currMoviesList = [];
   }
   async componentDidMount() {
     // console.log(this.state.favourites);
@@ -67,6 +68,7 @@ export default class Favourites extends Component {
       totalPages: Array.apply(null, Array(Math.ceil(filteredMovies.length/this.state.pageSize))),
       currPage: 0
     });
+    this.currMoviesList = [];
   }
   componentDidUpdate(prevProps, prevState) {
     localStorage.setItem("movies", JSON.stringify(this.state.favourites));
@@ -92,7 +94,11 @@ export default class Favourites extends Component {
   }
   handleSearch = (event) => {
     let searchStr = event.target.value.toLowerCase();
-    if(searchStr === ""){
+    // console.log(searchStr);
+    if(!this.currMoviesList.length) {
+      this.currMoviesList = this.state.movies;
+    }
+    if(searchStr === "") {
       this.setState({
         movies: (this.state.currGenre === "All Genres")? 
         [...this.state.favourites]: [...this.state.favourites.filter(movie => 
@@ -101,9 +107,10 @@ export default class Favourites extends Component {
       });
     } else {
       this.setState({
-        movies: this.state.movies?.filter(movie => 
+        movies: this.currMoviesList?.filter(movie => 
           movie.original_title.toLowerCase().includes(searchStr))
       });
+      // this.state.movies = this.currMoviesList;
     }
   }
   handlePageChange = (event) => {
@@ -171,7 +178,7 @@ export default class Favourites extends Component {
           <div className='d-flex justify-content-between fav-search'>
             <input className='col-7' 
             placeholder='Search movie. . .' 
-            onKeyUp={this.handleSearch}></input>
+            onChange={this.handleSearch}></input>
             <input className='col-4' 
             placeholder='Result per page (max 10 by default)' 
             type='number/submit'
@@ -183,14 +190,14 @@ export default class Favourites extends Component {
                 <th scope="col">Title</th>
                 <th scope="col">Genre</th>
                 <th scope="col">
-                  <i class="fa-solid fa-sort-up" onClick={this.sortPopularityAsc}></i>
+                  <i className="fa-solid fa-sort-up" onClick={this.sortPopularityAsc}></i>
                   Popularity
-                  <i class="fa-solid fa-sort-down" onClick={this.sortPopularityDesc}></i>
+                  <i className="fa-solid fa-sort-down" onClick={this.sortPopularityDesc}></i>
                 </th>
                 <th scope="col">
-                  <i class="fa-solid fa-sort-up" onClick={this.sortRatingAsc}></i>
+                  <i className="fa-solid fa-sort-up" onClick={this.sortRatingAsc}></i>
                   Rating
-                  <i class="fa-solid fa-sort-down" onClick={this.sortRatingDesc}></i>
+                  <i className="fa-solid fa-sort-down" onClick={this.sortRatingDesc}></i>
                 </th>
                 <th scope="col"></th>
               </tr>
