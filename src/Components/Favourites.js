@@ -81,7 +81,7 @@ export default class Favourites extends Component {
   handleDelete = (movieId)  => {
     // console.log(movieId);
     this.setState({
-      favourites: this.state.favourites.filter(movie => movie.id !== movieId)
+      favourites: this.state.favourites.filter(movie => movie.id !== movieId),
     });
   }
   handleSearch = (event) => {
@@ -113,12 +113,12 @@ export default class Favourites extends Component {
       <div className='p-5 gap-5 fav-cont'>
         <ul className="list-group col-2 fav-list">
         {
-          this.state.genres.map(currGenre => (
+          this.state.genres.map((currGenre, idx) => (
             (currGenre === this.state.currGenre)?
-            <li className="list-group-item active">
+            <li key={idx} className="list-group-item active">
               {currGenre}
             </li>
-            : <li className="list-group-item" onClick={() => this.handleGenre(currGenre)}>
+            : <li key={idx} className="list-group-item" onClick={() => this.handleGenre(currGenre)}>
               {currGenre}
             </li>
           ))
@@ -150,7 +150,7 @@ export default class Favourites extends Component {
                   (idx >= (((this.state.currPage + 1) * this.state.pageSize) - this.state.pageSize)) &&
                   (idx < ((this.state.currPage + 1) * this.state.pageSize)) &&
                   (
-                    <tr className='fav-table-row'>
+                    <tr key={movie.id} className='fav-table-row'>
                       <td className='fw-bolder fav-movie-title'>
                         <img className='fav-movie-img me-3' src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}/>
                         <span>{movie.original_title}</span>
@@ -176,13 +176,13 @@ export default class Favourites extends Component {
                 {
                   this.state.totalPages.map((page, idx) => (
                     (this.state.currPage === idx)? (
-                      <li className="page-item active">
+                      <li key={idx} className="page-item active">
                         <a className="page-link" onClick={this.handlePageChange}>
                           {idx + 1}
                         </a>
                       </li>    
                     ): (
-                      <li className="page-item">
+                      <li key={idx} className="page-item">
                         <a className="page-link" onClick={this.handlePageChange}>
                           {idx + 1}
                         </a>
