@@ -78,7 +78,7 @@ export default class Favourites extends Component {
       });
     }
     if(this.state.movies !== prevState.movies) {
-      console.log(this.state.movies.length);
+      // console.log(this.state.movies.length);
       this.setState({
         totalPages: Array.apply(null, Array(Math.ceil(this.state.movies.length/this.state.pageSize)))
       });
@@ -154,8 +154,16 @@ export default class Favourites extends Component {
               <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Genre</th>
-                <th scope="col">Popularity</th>
-                <th scope="col">Rating</th>
+                <th scope="col">
+                  <i class="fa-solid fa-sort-up"></i>
+                  Popularity
+                  <i class="fa-solid fa-sort-down"></i>
+                </th>
+                <th scope="col">
+                  <i class="fa-solid fa-sort-up"></i>
+                  Rating
+                  <i class="fa-solid fa-sort-down"></i>
+                </th>
                 <th scope="col"></th>
               </tr>
             </thead>
